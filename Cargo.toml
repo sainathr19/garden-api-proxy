@@ -1,0 +1,23 @@
+[package]
+name = "garden-api-proxy"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+alloy = { version = "0.5.2", features = ["full", "node-bindings", "eip712"] }
+alloy-primitives = "0.8.15"
+axum = { version = "0.7.9", features = ["http2"] }
+chrono = "0.4.39"
+dotenv = "0.15.0"
+hex = "0.4.3"
+hyper = { version = "1.5.2", features = ["full"] }
+jsonwebtoken = "9.3.0"
+lazy_static = "1.5.0"
+rand = "0.8.5"
+reqwest = "0.12.9"
+serde = { version = "1.0.216", features = ["derive"] }
+serde_json = "1.0.134"
+thiserror = "2.0.9"
+tokio = { version = "1.42.0", features = ["full", "tracing"] }
+tower = "0.5.2"
+tracing-subscriber = "0.3.19"
