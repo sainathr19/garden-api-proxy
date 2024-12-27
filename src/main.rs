@@ -7,13 +7,14 @@ use axum::{
     routing::{any, get},
     Router
 };
+use hyper::Method;
 use jwt_manager::JwtManager;
 use proxy::proxy_handler;
 use reqwest::Client;
 use signer::LocalSigner;
 use tokio::sync::Mutex;
 use std::{env, sync::Arc};
-
+use tower_http::cors::{AllowHeaders, Any, CorsLayer};
 
 #[derive(Clone)]
 struct GardenApi{
@@ -50,8 +51,14 @@ async fn main() {
         secret_key
     };    
 
+    let cors = CorsLayer::new()
+    .allow_methods(vec![Method::GET, Method::POST])
+    .allow_origin(Any)
+    .allow_headers(Any);
+
     let app = Router::new()
         .route("/", get(home))
+        .layer(cors)
         .route("/*path", any(proxy_handler))
         .with_state(state);
 
